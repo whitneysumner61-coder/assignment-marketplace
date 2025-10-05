@@ -1,7 +1,7 @@
 {
   "name": "assignment-marketplace",
   "version": "1.0.0",
-  "description": "Two-sided marketplace for assignable purchase contracts",
+  "description": "Enterprise-grade real estate assignment contract marketplace",
   "private": true,
   "workspaces": [
     "apps/*",
@@ -12,11 +12,16 @@
     "dev": "turbo run dev",
     "lint": "turbo run lint",
     "test": "turbo run test",
-    "format": "prettier --write ."
+    "format": "prettier --write .",
+    "prepare": "husky install"
   },
   "devDependencies": {
     "prettier": "^3.0.0",
-    "turbo": "^1.10.0"
+    "turbo": "^1.10.0",
+    "husky": "^8.0.0"
   },
-  "packageManager": "pnpm@8.6.0"
+  "packageManager": "pnpm@8.6.0",
+  "engines": {
+    "node": ">=18.0.0"
+  }
 }
