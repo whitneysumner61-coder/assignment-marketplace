@@ -1,0 +1,26 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --gradient-start: #0ea5e9;
+  --gradient-end: #6366f1;
+}
+
+html,
+body,
+#__next {
+  height: 100%;
+}
+
+body {
+  @apply bg-gradient-to-br from-blue-50 to-white text-gray-900 antialiased;
+}
+
+.dark body {
+  @apply bg-gray-900 text-gray-100;
+}
+
+.header-title {
+  @apply text-2xl font-semibold;
+}
