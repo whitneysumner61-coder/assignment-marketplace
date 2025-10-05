@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Assignment Marketplace Platform
 
 A two-sided marketplace where wholesalers list assignable purchase contracts as timed auctions; verified investors bid with earnest-money pre-auth and closing timelines; and an embedded services network plugs in per-deal.
@@ -66,3 +67,7 @@ assignment-marketplace/
 ## License
 
 This project is licensed under the MIT License - see the LICENSE file for details.
+=======
+# assignment-marketplace
+Two-sided marketplace for assignable purchase contracts
+>>>>>>> 8b0f61f3579a7d56cc531be5d4f78f6036d8cd7f
