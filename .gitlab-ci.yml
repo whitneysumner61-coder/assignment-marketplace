@@ -1,0 +1,57 @@
+# GitLab CI/CD Configuration
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  NODE_VERSION: '18'
+
+before_script:
+  - apt-get update && apt-get install -y curl
+  - curl -fsSL https://deb.nodesource.com/setup_18.x | bash -
+  - apt-get install -y nodejs
+  - npm install -g pnpm
+  - pnpm install
+
+build:
+  stage: build
+  script:
+    - pnpm run build
+  artifacts:
+    paths:
+      - apps/web/.next/
+      - apps/api/dist/
+
+test:
+  stage: test
+  script:
+    - pnpm run test
+  coverage: '/Coverage: \d+\.\d+%/'
+
+lint:
+  stage: test
+  script:
+    - pnpm run lint
+
+deploy-staging:
+  stage: deploy
+  script:
+    - echo 'Deploying to staging environment'
+  environment:
+    name: staging
+    url: https://staging.assignment-marketplace.com
+  only:
+    - develop
+
+deploy-production:
+  stage: deploy
+  script:
+    - echo 'Deploying to production environment'
+  environment:
+    name: production
+    url: https://assignment-marketplace.com
+  only:
+    - main
+
