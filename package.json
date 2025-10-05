@@ -1,0 +1,22 @@
+{
+  "name": "assignment-marketplace",
+  "version": "1.0.0",
+  "description": "Two-sided marketplace for assignable purchase contracts",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "turbo run build",
+    "dev": "turbo run dev",
+    "lint": "turbo run lint",
+    "test": "turbo run test",
+    "format": "prettier --write ."
+  },
+  "devDependencies": {
+    "prettier": "^3.0.0",
+    "turbo": "^1.10.0"
+  },
+  "packageManager": "pnpm@8.6.0"
+}
