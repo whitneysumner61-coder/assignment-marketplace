@@ -244,6 +244,8 @@ class Property:
 ```python
 def _generate_id(self) -> str:
     hash_input = f"{self.address}_{self.source}_{self.date}"
+    # Note: MD5 is used for non-cryptographic ID generation only
+    # For security-critical applications, use SHA-256
     return hashlib.md5(hash_input.encode()).hexdigest()[:12]
 ```
 
@@ -347,31 +349,44 @@ def matches_property(self, prop: Property) -> Tuple[bool, int]:
     score = 0
     
     # 1. Price Check (Mandatory)
-    if price not in [min_price, max_price]:
+    if not (min_price <= price <= max_price):
         return False, 0
     
     # 2. Location (30 points)
     if prop.city in preferred_areas:
         score += 30
+    elif preferred_areas:  # Has preferences but doesn't match
+        return False, 0
+    else:  # No preferences
+        score += 10
     
     # 3. Property Type (20 points)
     if prop.type in property_types:
         score += 20
+    else:
+        score += 10  # No preference
     
     # 4. Bedrooms (15 points)
     if prop.beds >= min_bedrooms:
         score += 15
+    else:
+        score += 5  # Partial credit
     
     # 5. Bathrooms (15 points)
     if prop.baths >= min_bathrooms:
         score += 15
+    else:
+        score += 5  # Partial credit
     
     # 6. Square Footage (10 points)
     if prop.sqft >= min_sqft:
         score += 10
+    else:
+        score += 5  # Partial credit
     
-    # Minimum threshold: 50
-    return score >= 50, min(score, 100)
+    # Note: Minimum threshold of 50 is enforced at match time
+    # This allows flexibility in the matching algorithm
+    return True, min(score, 100)
 ```
 
 **Match Flow:**
@@ -382,14 +397,19 @@ Properties → For Each Property
               ↓
           Check Criteria
               ↓
-          Calculate Score
+          Calculate Score (0-100)
               ↓
-          Score ≥ 50? → Save Match
+          Score ≥ 50? → Save Match to DB
+              │            (enforced in match_properties_to_buyers)
               ↓
-          Sort by Score
+          Sort by Score (DESC)
               ↓
           Return Top Matches
 ```
+
+**Note:** The 50-point threshold is applied when saving matches, not in the
+scoring function itself. This allows the algorithm to be flexible while still
+filtering low-quality matches.
 
 ---
 
