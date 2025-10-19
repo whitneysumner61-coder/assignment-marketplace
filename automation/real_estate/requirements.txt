@@ -1,0 +1,27 @@
+# Core dependencies for Advanced Real Estate Wholesaling Automation System
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+lxml>=4.9.0
+html5lib>=1.1
+
+# Data handling
+pandas>=2.0.0
+openpyxl>=3.1.0  # For Excel export support
+
+# Database
+# SQLite is built-in with Python, no need to install
+
+# Testing (optional)
+pytest>=7.4.0
+pytest-cov>=4.1.0
+pytest-mock>=3.11.0
+
+# Code quality (optional)
+black>=23.0.0
+flake8>=6.0.0
+mypy>=1.4.0
+
+# Additional utilities
+python-dotenv>=1.0.0  # For environment variable management
+tqdm>=4.65.0  # For progress bars
+tabulate>=0.9.0  # For pretty table printing
